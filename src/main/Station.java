@@ -2,7 +2,7 @@
 
 package main;
 
-public class Station {
+public class Station implements Comparable<Station> {
     private int id;
     private String stationName;
     private String gegrLat;
@@ -10,6 +10,9 @@ public class Station {
     private String addressStreet;
     private StationCity city;
 
+    public int compareTo(Station station) {
+        return this.getCity().getName().compareTo(station.getCity().name);
+    }
 
     public int getId() {
         return id;

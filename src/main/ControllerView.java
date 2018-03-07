@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -29,11 +30,9 @@ public class ControllerView {
     @FXML
     private void initialize() {
         stationList = new ModelView().getStations();
-//        stationList.sort();
+        Collections.sort(stationList);
         setStationCity();
-//        setStationName();
     }
-
 
     public void setStationCity() {
         observableList.clear();
@@ -46,12 +45,11 @@ public class ControllerView {
                 observableList.add(string);
             }
         }
-        observableList.sort(null);
         cityComboBox.setItems(observableList);
     }
 
     public void setStationName() {
-        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.clear();
 
         for (Station station : stationList) {
             observableList.add(station.getStationName());
