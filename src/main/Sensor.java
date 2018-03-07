@@ -9,10 +9,6 @@ public class Sensor {
         return id;
     }
 
-    public int getStationId() {
-        return stationId;
-    }
-
     public SensorParam getSensorParam() {
         return sensorParam;
     }

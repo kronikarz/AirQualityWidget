@@ -27,15 +27,15 @@ public class Station {
         return gegrLon;
     }
 
-    public StationCity getCity() {
-        return city;
-    }
-
     public String getAddressStreet() {
         return addressStreet;
     }
 
-    private class StationCity {
+    public StationCity getCity() {
+        return city;
+    }
+
+    public class StationCity {
         private int id;
         private String name;
         private StationCityCommune commune;
@@ -52,7 +52,7 @@ public class Station {
             return commune;
         }
 
-        private class StationCityCommune {
+        public class StationCityCommune {
             private String communeName;
             private String districtName;
             private String provinceName;
