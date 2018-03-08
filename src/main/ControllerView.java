@@ -7,21 +7,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ControllerView {
 
     @FXML
-    private Label resultPM25Label;
+    private Label resultPM25Label, resultPM10Label;
 
     @FXML
-    private Label resultPM10Label;
-
-    @FXML
-    private ComboBox<String> stationNameComboBox, cityComboBox;
-
-    private ObservableList<String> observableList = FXCollections.observableArrayList();
+    private ComboBox<String> cityComboBox, stationAddressComboBox;
 
     private List<Station> stationList;
     private List<Sensor> sensorList;
@@ -35,25 +29,34 @@ public class ControllerView {
     }
 
     public void setStationCity() {
-        observableList.clear();
-        String string = "";
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        String s = "";
 
-        for(Station station : stationList) {
-            //condition to not repeat cities
-            if (!station.getCity().getName().equals(string)) {
-                string = station.getCity().getName();
-                observableList.add(string);
+        for (Station station : stationList) {
+            String c = station.getCity().getName();
+            //condition to not repeat cities in ComboBox
+            if (!s.equals(c)) {
+                s = c;
+                observableList.add(s);
             }
         }
         cityComboBox.setItems(observableList);
     }
 
-    public void setStationName() {
-        observableList.clear();
+    public void setAddressName() {
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        String i = cityComboBox.getSelectionModel().getSelectedItem();
 
         for (Station station : stationList) {
-            observableList.add(station.getStationName());
+            String c = station.getCity().getName();
+            String a = station.getAddressStreet();
+            String n = station.getStationName();
+            //if city address = null, set station name instead
+            if (i.equals(c) && (a != null))
+                observableList.add(a);
+            else if (i.equals(c))
+                observableList.add(n);
         }
-        stationNameComboBox.setItems(observableList);
+        stationAddressComboBox.setItems(observableList);
     }
 }
