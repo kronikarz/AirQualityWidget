@@ -3,17 +3,17 @@ package main;
 public class Sensor {
     private int id;
     private int stationId;
-    private SensorParam sensorParam;
+    private SensorParam param;
 
     public int getId() {
         return id;
     }
 
-    public SensorParam getSensorParam() {
-        return sensorParam;
+    public SensorParam getParam() {
+        return param;
     }
 
-    private class SensorParam {
+    public class SensorParam {
         private String paramName;
         private String paramFormula;
         private String paramCode;

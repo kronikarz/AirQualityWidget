@@ -19,24 +19,44 @@ public class ModelView {
         stringURL = downloadJson(stringURL);
 
         //Needed to parse JSON to List<Station>
-        Type foundListType = new TypeToken<ArrayList<Station>>() {}.getType();
+        Type foundListType = new TypeToken<ArrayList<Station>>() {
+        }.getType();
 
         if (stringURL == "1") {
-            stringURL = "[{\"id\":1,\"stationName\":\"Error\",\"gegrLat\":\"Error\",\"gegrLon\":\"Error\",\"city\":{\"id\":1,\"name\":\"Error\",\"commune\":{\"communeName\":\"Error\",\"districtName\":\"Error\",\"provinceName\":\"Error\"}},\"addressStreet\":\"Error\"}]";
+            stringURL = "[{'id': 1,'stationName':'Error','gegrLat':'Error','gegrLon':'Error','city':{'id': 1,'name':'Error','commune':{'communeName':'Error','districtName':'Error','provinceName':'Error'}},'addressStreet':'Error'}]";
             return new Gson().fromJson(stringURL, foundListType);
         } else {
             return new Gson().fromJson(stringURL, foundListType);
         }
     }
 
-    public String getSensors(String stationID) {
+    public List<Sensor> getSensors(String stationID) {
         String stringURL = "http://api.gios.gov.pl/pjp-api/rest/station/sensors/" + stationID;
-        return downloadJson(stringURL);
+        stringURL = downloadJson(stringURL);
+
+        //Needed to parse JSON to List<Sensor>
+        Type foundListType = new TypeToken<ArrayList<Sensor>>() {
+        }.getType();
+
+        if (stringURL == "1") {
+            stringURL = "[{'id': 1,'stationId': 1,'param':{'paramName':'Error','paramFormula':'Error','paramCode':'Error','idParam': 1}}]";
+            return new Gson().fromJson(stringURL, foundListType);
+        } else {
+            return new Gson().fromJson(stringURL, foundListType);
+        }
     }
 
-    public String getSensorData(String sensorID) {
+    public SensorData getSensorData(String sensorID) {
         String stringURL = "http://api.gios.gov.pl/pjp-api/rest/data/getData/" + sensorID;
-        return downloadJson(stringURL);
+
+        stringURL = downloadJson(stringURL);
+
+        if (stringURL == "1") {
+            stringURL = "{'key':'Error','values':[{'date':'Error','value': 1}]}";
+            return new Gson().fromJson(stringURL, SensorData.class);
+        } else {
+            return new Gson().fromJson(stringURL, SensorData.class);
+        }
     }
 
     private String downloadJson(String stringURL) {

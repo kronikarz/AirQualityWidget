@@ -7,11 +7,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="240.0" prefWidth="170.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ControllerView">
+<VBox alignment="CENTER" prefHeight="250.0" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ControllerView">
    <children>
       <HBox alignment="CENTER" prefHeight="20.0">
          <children>
-            <Label text="PM 2.5:">
+            <Label text="PM 2.5 Date:">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="datePM25Label" text="0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="20.0">
+         <children>
+            <Label text="PM 2.5 Result:">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
@@ -26,7 +36,17 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="20.0">
          <children>
-            <Label text="PM 10:">
+            <Label text="PM 10 Date:">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="datePM10Label" text="0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="20.0">
+         <children>
+            <Label text="PM 10 Result:">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
@@ -39,10 +59,9 @@
             <Label text="ug" />
          </children>
       </HBox>
-      <Button id="buttonRefresh" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Refresh&#10;Data" textAlignment="CENTER" />
-      <Button id="buttonDownloadCities" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Download&#10;Cities" textAlignment="CENTER" />
-      <ComboBox fx:id="cityComboBox" onAction="#setAddressName" prefWidth="150.0" />
-      <ComboBox fx:id="stationAddressComboBox" layoutX="20.0" layoutY="197.0" prefWidth="150.0" />
+      <Button id="buttonRefresh" mnemonicParsing="false" onAction="#setSensorData" prefHeight="40.0" prefWidth="100.0" text="Refresh&#10;Data" textAlignment="CENTER" />
+      <ComboBox fx:id="cityComboBox" onAction="#setStationName" prefWidth="200.0" />
+      <ComboBox fx:id="stationAddressComboBox" layoutX="20.0" layoutY="197.0" prefWidth="400.0" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

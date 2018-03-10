@@ -6,20 +6,23 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class ControllerView {
 
     @FXML
-    private Label resultPM25Label, resultPM10Label;
+    private Label datePM25Label, resultPM25Label, datePM10Label, resultPM10Label;
 
     @FXML
     private ComboBox<String> cityComboBox, stationAddressComboBox;
 
     private List<Station> stationList;
     private List<Sensor> sensorList;
-    private List<SensorData> sensorDataList;
+    private SensorData sensorData;
+
+    private List<Integer> stationID;
 
     @FXML
     private void initialize() {
@@ -43,20 +46,68 @@ public class ControllerView {
         cityComboBox.setItems(observableList);
     }
 
-    public void setAddressName() {
+    public void setStationName() {
         ObservableList<String> observableList = FXCollections.observableArrayList();
-        String i = cityComboBox.getSelectionModel().getSelectedItem();
+        String c, a, n, s = cityComboBox.getSelectionModel().getSelectedItem();
+        int i = 0;
+        stationID = new ArrayList<Integer>();
 
         for (Station station : stationList) {
-            String c = station.getCity().getName();
-            String a = station.getAddressStreet();
-            String n = station.getStationName();
+            c = station.getCity().getName();
+            a = station.getAddressStreet();
+            n = station.getStationName();
             //if city address = null, set station name instead
-            if (i.equals(c) && (a != null))
+            if (s.equals(c) && (a != null)) {
                 observableList.add(a);
-            else if (i.equals(c))
+                stationID.add(i, station.getId());
+                i++;
+            } else if (s.equals(c)) {
                 observableList.add(n);
+                stationID.add(i, station.getId());
+                i++;
+            }
         }
         stationAddressComboBox.setItems(observableList);
+    }
+
+    public void setSensorData() {
+        if (!stationAddressComboBox.getItems().isEmpty()) {
+            int idPM25 = 0, idPM10 = 0, i = stationAddressComboBox.getSelectionModel().getSelectedIndex();
+            sensorList = new ModelView().getSensors(stationID.get(i).toString());
+
+            //for PM 2.5 & PM 10
+            for (Sensor s : sensorList) {
+                if (s.getParam().getParamCode().equals("PM2.5")) {
+                    idPM25 = s.getId();
+                }
+                if (s.getParam().getParamCode().equals("PM10")) {
+                    idPM10 = s.getId();
+                }
+            }
+
+            if (idPM25 != 0) {
+                sensorData = new ModelView().getSensorData(String.valueOf(idPM25));
+
+                for (SensorData.Values sd : sensorData.getValues()) {
+                    if (sd.getValue() != null) {
+                        resultPM25Label.setText(String.valueOf(sd.getValue()));
+                        datePM25Label.setText(sd.getDate());
+                        break;
+                    }
+                }
+            }
+
+            if (idPM10 != 0) {
+                sensorData = new ModelView().getSensorData(String.valueOf(idPM10));
+
+                for (SensorData.Values sd : sensorData.getValues()) {
+                    if (sd.getValue() != null) {
+                        resultPM10Label.setText(String.valueOf(sd.getValue()));
+                        datePM10Label.setText(sd.getDate());
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

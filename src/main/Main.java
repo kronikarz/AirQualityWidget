@@ -11,8 +11,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("WindowView.fxml"));
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root, 200, 200));
+        primaryStage.setTitle("Air Quality Widget");
+        primaryStage.setScene(new Scene(root, 400, 250));
         primaryStage.show();
     }
 

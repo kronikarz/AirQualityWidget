@@ -3,8 +3,8 @@ package main;
 import java.util.List;
 
 public class SensorData {
-    String key; //"key": "PM10",
-    List<Values> values;
+    private String key; //"key": "PM10",
+    private List<Values> values;
 
     public String getKey() {
         return key;
@@ -14,15 +14,15 @@ public class SensorData {
         return values;
     }
 
-    private class Values {
-        String date;
-        double value; //"value": 30.3018
+    public class Values {
+        private String date;
+        private Double value; //"value": 30.3018
 
         public String getDate() {
             return date;
         }
 
-        public double getValue() {
+        public Double getValue() {
             return value;
         }
     }
