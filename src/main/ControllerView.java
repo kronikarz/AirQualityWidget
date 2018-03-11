@@ -29,6 +29,7 @@ public class ControllerView {
         stationList = new ModelView().getStations();
         Collections.sort(stationList);
         setStationCity();
+        setStationName();
     }
 
     public void setStationCity() {
@@ -44,6 +45,7 @@ public class ControllerView {
             }
         }
         cityComboBox.setItems(observableList);
+        cityComboBox.getSelectionModel().selectFirst();
     }
 
     public void setStationName() {
@@ -67,7 +69,14 @@ public class ControllerView {
                 i++;
             }
         }
+        if (!stationAddressComboBox.getItems().isEmpty()) {
+            stationAddressComboBox.getItems().clear();
+        }
+
         stationAddressComboBox.setItems(observableList);
+        stationAddressComboBox.getSelectionModel().selectFirst();
+
+        setSensorData();
     }
 
     public void setSensorData() {
@@ -95,6 +104,9 @@ public class ControllerView {
                         break;
                     }
                 }
+            } else {
+                datePM25Label.setText("Sensor not installed.");
+                resultPM25Label.setText("0");
             }
 
             if (idPM10 != 0) {
@@ -107,6 +119,9 @@ public class ControllerView {
                         break;
                     }
                 }
+            } else {
+                datePM10Label.setText("Sensor not installed.");
+                resultPM10Label.setText("0");
             }
         }
     }
